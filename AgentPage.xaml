@@ -9,6 +9,6 @@
       Title="AgentPage">
 
     <Grid>
-        
+        <Button Content="GO" Click="Button_Click"></Button>
     </Grid>
 </Page>
