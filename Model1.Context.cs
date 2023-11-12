@@ -23,10 +23,10 @@ namespace Ayupov_Glazki
 
         public static AyupovGlazkiEntities GetContext()
         {
-            if(_context == null )
+            if(_context == null)
                 _context = new AyupovGlazkiEntities();
-            return _context;
 
+            return _context;
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
