@@ -10,6 +10,7 @@
             <Setter Property="Height" Value="30"></Setter>
             <Setter Property="Background" Value="#B175EE"></Setter>
             <Setter Property="Margin" Value="20"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
         </Style>
     </Application.Resources>
 </Application>
