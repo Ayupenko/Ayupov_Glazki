@@ -76,12 +76,29 @@ namespace Ayupov_Glazki
             if(errors.Length>0)
             {
                 MessageBox.Show(errors.ToString());
+                return;
+            }
+            if (currentAgent.ID == 0)
+                AyupovGlazkiEntities.GetContext().Agent.Add(currentAgent);
+
+            try
+            {
+                AyupovGlazkiEntities.GetContext().SaveChanges();
+                MessageBox.Show("Информация сохранена");
+                Manager.MainFrame.GoBack();
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+
             }
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            
+            
         }
     }
 }
