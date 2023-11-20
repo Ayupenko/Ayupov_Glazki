@@ -73,11 +73,22 @@ namespace Ayupov_Glazki
             }
             if (string.IsNullOrWhiteSpace(currentAgent.Email))
                 errors.AppendLine("Укажите почту агента");
-            if(errors.Length>0)
+            else if (!EmailValidator(currentAgent.Email))
+            {
+                errors.AppendLine("Почта в неправильном формате");
+            }
+            if (errors.Length>0)
             {
                 MessageBox.Show(errors.ToString());
                 return;
             }
+            currentAgent.AgentTypeID = ComboType.SelectedIndex + 1;
+            if (currentAgent.ID == 0)
+            {
+                AyupovGlazkiEntities.GetContext().Agent.Add(currentAgent);
+            }
+
+            
             if (currentAgent.ID == 0)
                 AyupovGlazkiEntities.GetContext().Agent.Add(currentAgent);
 
@@ -95,10 +106,43 @@ namespace Ayupov_Glazki
             }
         }
 
-        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        private bool EmailValidator(string email)
         {
             
+                return email.Contains("@") && email.Contains('.');
             
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            var currentProducts = AyupovGlazkiEntities.GetContext().ProductSale.ToList();
+            currentProducts = currentProducts.Where(p => p.AgentID == currentAgent.ID).ToList();
+            if (currentProducts.Count != 0)
+            {
+                MessageBox.Show("Невозможно выполнить удаления, так как существуют записи на эту услугу");
+            }
+            else
+            {
+                if (MessageBox.Show("Вы точно хотите выполнить удаление?",
+                        "Внимание!",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question) ==
+                    MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                       AyupovGlazkiEntities.GetContext().Agent.Remove(currentAgent);
+                       AyupovGlazkiEntities.GetContext().SaveChanges();
+                        Manager.MainFrame.GoBack();
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message);
+                    }
+                }
+            }
+
         }
     }
 }

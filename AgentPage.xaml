@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Ayupov_Glazki"
-      mc:Ignorable="d" 
+      mc:Ignorable="d" IsVisibleChanged="AgentPage_OnIsVisibleChanged"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AgentPage" FontFamily="Century Gothic">
     <Grid>
@@ -64,6 +64,9 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Image Width="200" Grid.Column="0" Grid.RowSpan="4" Stretch="UniformtoFill" HorizontalAlignment="Left">
                         <Image.Source>
@@ -82,11 +85,14 @@
                         <TextBlock Text="{Binding AgentTypeString}" HorizontalAlignment="Left" FontSize="20" TextWrapping="Wrap"></TextBlock>
                         <TextBlock Text=" | " HorizontalAlignment="Left" FontSize="20" TextWrapping="Wrap"></TextBlock>
                         <TextBlock Text="{Binding Title}" HorizontalAlignment="Left" FontSize="20" TextWrapping="Wrap"></TextBlock>
+                        
                         </StackPanel>
 
                     <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left" FontSize="15" TextWrapping="Wrap"></TextBlock>
                     <TextBlock Text="{Binding Priority, StringFormat=Приоритетность: {0}}" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Left" FontSize="15" TextWrapping="Wrap"></TextBlock>
-                        <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3">
+                            <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
+                        </StackPanel>
 
                     </Grid>
                 

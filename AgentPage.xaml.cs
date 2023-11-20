@@ -224,5 +224,15 @@ namespace Ayupov_Glazki
         {
             Manager.MainFrame.Navigate(new AddEditPage((sender as Button).DataContext as Agent));
         }
+        private void AgentPage_OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                AyupovGlazkiEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                AgentListView.ItemsSource = AyupovGlazkiEntities.GetContext().Agent.ToList();
+            }
+
+            UpdateAgents();
+        }
     }
 }

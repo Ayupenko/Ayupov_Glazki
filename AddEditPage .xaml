@@ -36,12 +36,18 @@
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical" Grid.RowSpan="4">
             <TextBlock Text="Логотип" FontSize="15" Height="20" Width="auto" Margin="5"></TextBlock>
-            <Image Name="LogoImage" Stretch="UniformToFill" MinHeight="50" Height="100" Width="100"
-                   HorizontalAlignment="Center" Margin="5">
+            
+            <Image Name="LogoImage" Stretch="UniformToFill" Width="130"
+                   HorizontalAlignment="Center">
                 <Image.Source>
-                    <Binding Path="Logo" TargetNullValue="image\picture.png"></Binding>
+                    <Binding Path="Logo" >
+                        <Binding.TargetNullValue>
+                            <ImageSource>image/picture.png</ImageSource>
+                        </Binding.TargetNullValue>
+                    </Binding>
                 </Image.Source>
             </Image>
+
             <Button Content="Изменить" Name="ChangePictureBtn" Click="ChangePictureBtn_Click"></Button>
         </StackPanel>
 
