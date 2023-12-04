@@ -11,7 +11,10 @@ namespace Ayupov_Glazki
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+    using System.Windows.Media;
+    using System.Windows.Navigation;
+
     public partial class Agent
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -43,5 +46,63 @@ namespace Ayupov_Glazki
         public virtual ICollection<Shop> Shop { get; set; }
 
         public string AgentTypeString { get { return AgentType.Title; } }
+        public int ProductCount => GetAllProducts();
+        public int GetAllProducts()
+        {
+            var count = 0;
+            var context = AyupovGlazkiEntities.GetContext().ProductSale.Where(p => p.AgentID == ID).ToList();
+            foreach(var ProductSale in context)
+            {
+                count+=ProductSale.ProductCount;
+        }
+
+        return count;
+        }
+        public int Discount => GetDiscount();
+        
+        public int GetDiscount()
+        {
+            var productSale = AyupovGlazkiEntities.GetContext().ProductSale.Where(p=>p.AgentID==ID).ToList();
+            var products = AyupovGlazkiEntities.GetContext().Product.ToList();
+            decimal sale = 0;
+            int Discount = 0;
+            foreach(var product in products)
+            {
+                foreach(var item2 in productSale)
+                {
+                    if(product.ID== item2.ProductID)
+                    {
+                        sale += product.MinCostForAgent * item2.ProductCount;
+                    }
+                }
+            }
+            if (sale >= 0 && sale < 10000)
+                Discount = 0;
+            if (sale >= 10000 && sale < 50000)
+                Discount = 5;
+            if (sale >= 50000 && sale < 150000)
+                Discount = 10;
+            if (sale >= 150000 && sale < 500000)
+                Discount = 20;
+            if (sale >= 500000)
+                Discount = 25;
+            return Discount;
+
+        }
+        public SolidColorBrush FonStyle
+        {
+            get
+            {
+                if(Discount>=10)
+                {
+                    return (SolidColorBrush)new BrushConverter().ConvertFromString("LightGreen");
+                }
+                else
+                {
+                    return (SolidColorBrush)new BrushConverter().ConvertFromString("White");
+                }
+            }
+        }
     }
+
 }

@@ -55,7 +55,7 @@
         <ListView Name ="AgentListView" Grid.Row="1" >
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Grid>
+                <Grid Background="{Binding FonStyle}" Width="1200">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -88,9 +88,11 @@
                         
                         </StackPanel>
 
-                    <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left" FontSize="15" TextWrapping="Wrap"></TextBlock>
-                    <TextBlock Text="{Binding Priority, StringFormat=Приоритетность: {0}}" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Left" FontSize="15" TextWrapping="Wrap"></TextBlock>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3">
+                    <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Left" FontSize="15" TextWrapping="Wrap"></TextBlock>
+                    <TextBlock Text="{Binding Priority, StringFormat=Приоритетность: {0}}" Grid.Column="1" Grid.Row="3"  HorizontalAlignment="Left" FontSize="15" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Text="{Binding Discount, StringFormat=*cкидка: {0}%}" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Left" FontSize="15" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Text="{Binding ProductCount, StringFormat=Продаж за год: {0}}" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left" FontSize="15" TextWrapping="Wrap"></TextBlock>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4">
                             <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
                         </StackPanel>
 

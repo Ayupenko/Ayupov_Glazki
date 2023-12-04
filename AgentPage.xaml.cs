@@ -177,7 +177,7 @@ namespace Ayupov_Glazki
             ChangePage(0,0);
 
         }
-
+       
         private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateAgents();
@@ -235,4 +235,6 @@ namespace Ayupov_Glazki
             UpdateAgents();
         }
     }
+   
+    
 }
