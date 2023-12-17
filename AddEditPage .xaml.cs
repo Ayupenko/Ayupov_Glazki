@@ -144,5 +144,9 @@ namespace Ayupov_Glazki
             }
 
         }
+        private void HistoryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AgentSalePage(currentAgent));
+        }
     }
 }

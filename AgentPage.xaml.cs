@@ -35,7 +35,7 @@ namespace Ayupov_Glazki
 
             ComboSort.SelectedIndex = 0;
             ComboFilter.SelectedIndex = 0;
-
+            EditPriorityBtn.Visibility = Visibility.Hidden;
             UpdateAgents();
         }
         private void ChangePage(int direction, int? selectedPage)
@@ -233,6 +233,44 @@ namespace Ayupov_Glazki
             }
 
             UpdateAgents();
+        }
+        private void EditPriority_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AgentListView.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Выберите агента/ов для редактирования приоритета");
+                return;
+            }
+            else
+            {
+                var p = (AgentListView.SelectedItems.Cast<Agent>().Select(selectedItem => selectedItem.Priority)).Prepend(0).Max();
+                var window = new EditPriority(p);
+                window.ShowDialog();
+                if (string.IsNullOrEmpty(window.Priority.Text))
+                {
+                    return;
+                }
+
+                foreach (Agent selectedItem in AgentListView.SelectedItems)
+                {
+                    selectedItem.Priority = Convert.ToInt32(window.Priority.Text);
+                }
+
+                try
+                {
+                   AyupovGlazkiEntities.GetContext().SaveChanges();
+                    window.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                UpdateAgents();
+            }
+        }
+        private void AgentListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            EditPriorityBtn.Visibility = AgentListView.SelectedItems.Count > 1 ? Visibility.Visible : Visibility.Hidden;
         }
     }
    
